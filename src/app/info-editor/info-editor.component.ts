@@ -190,39 +190,28 @@ export class InfoEditorComponent implements OnInit {
   }
 
   updateProject() {
-    Swal.fire({
-      title: 'Continue saving?',
-      text: "",
-      icon: 'question',
-      showCancelButton: true,
-      confirmButtonText: 'Yes',
-      cancelButtonText: 'No',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        
-        this.changesBeforeUploadOnServer();
-        
-        // delete info images marked for deletion
-        this.deleteChangedImages();
 
-        // save the images
-        let saveInfoImg = this.infoImages.filter(img=>img.new==true);
-        if (this.projectImage.file != null || saveInfoImg.length != 0) {
+    this.changesBeforeUploadOnServer();
 
-          if(this.projectImage.file != null){
-            this.projectService.deleteImage(this.currentProject.photo);
-            this.currentProject.photo = this.projectImage.name;
-            saveInfoImg = saveInfoImg.concat([this.projectImage]);
-          }
-          this.projectService.uploadImages(saveInfoImg).subscribe(success => { if (success) { this.assignCurrentProject() }});
-        }
+    // delete info images marked for deletion
+    this.deleteChangedImages();
 
-        // update the project
-        this.projectService.updateProject(this.userId, this.projectId, this.currentProject).subscribe(
-          success => { if (success) { this.assignCurrentProject() }}
-        )
+    // save the images
+    let saveInfoImg = this.infoImages.filter(img => img.new == true);
+    if (this.projectImage.file != null || saveInfoImg.length != 0) {
+
+      if (this.projectImage.file != null) {
+        this.projectService.deleteImage(this.currentProject.photo);
+        this.currentProject.photo = this.projectImage.name;
+        saveInfoImg = saveInfoImg.concat([this.projectImage]);
       }
-    })
+      this.projectService.uploadImages(saveInfoImg).subscribe(success => { if (success) { this.assignCurrentProject() } });
+    }
+
+    // update the project
+    this.projectService.updateProject(this.userId, this.projectId, this.currentProject).subscribe(
+      success => { if (success) { this.assignCurrentProject() } }
+    )
   }
 
   changesBeforeUploadOnServer(){
