@@ -43,6 +43,9 @@
             <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#login">
                 Log In
             </button>
+            <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#create">
+                Create account
+            </button>
         </li>
     </ul>
     
@@ -149,6 +152,17 @@
         <div class="modal-content">
             <div class="modal-body">
                 <change-password [userId]=userId></change-password>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Create account-->
+<div class="modal fade" id="create">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <app-create-account></app-create-account>
             </div>
         </div>
     </div>
