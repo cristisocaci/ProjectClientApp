@@ -179,14 +179,16 @@ export class InfoEditorComponent implements OnInit {
         this.infoImages[i].deleted = true;
       }
     }
-    else{ // change indexes saved in the images array to match those from the info array
-      for(let i = 0; i < this.infoImages.length; ++i){
-        if(this.infoImages[i].index > index){
-          this.infoImages[i].index -= 1;
-        }
+    // change indexes saved in the images array to match those from the info array
+    for(let i = 0; i < this.infoImages.length; ++i){
+      if(this.infoImages[i].index > index){
+        this.infoImages[i].index -= 1;
       }
     }
+    
     this.currentProject.infos.splice(index, 1);
+    console.log(this.currentProject.infos);
+    console.log(this.infoImages);
   }
 
   updateProject() {
@@ -231,9 +233,10 @@ export class InfoEditorComponent implements OnInit {
         }
       }
       else if(this.currentProject.infos[i].type == "image"){ // save the name of the image in the info array 
-        let content = this.infoImages[this.infoImages.findIndex(x=>x.index == i)];
-        if( content != null){
-          this.currentProject.infos[i].content = content.name;
+        for(let j = 0; j < this.infoImages.length; ++j){
+          if(this.infoImages[j].index == i && !this.infoImages[j].deleted ){
+            this.currentProject.infos[i].content = this.infoImages[j].name;
+          }
         }
       }
     }
