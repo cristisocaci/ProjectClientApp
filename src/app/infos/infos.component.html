@@ -29,6 +29,10 @@
             
             
         </nav>
+        
+        <div *ngIf="startWaitingAnimation" class="progress sticky-top" style="height: 0.2rem">
+            <div class="progress-bar" id="progress"></div>
+        </div>
 
         <info-editor [currentProject]=currentProject [(modifyProject)]=modifyProject [userId]=userId [projectId]=projectId></info-editor>
 

@@ -19,6 +19,7 @@ export class ChangePasswordComponent implements OnInit {
   domain = sessionStorage.getItem('domain');
   message: string;
   passproblem: boolean;
+  startWaitingAnimation = false;
 
   constructor(private http : HttpClient,
               private router: Router,
@@ -26,6 +27,15 @@ export class ChangePasswordComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+  wait(){
+    this.startWaitingAnimation = true;
+  }
+  stopwait(){
+    this.startWaitingAnimation = false;
+  }
+
+
   changePassword(form: NgForm) {
 
     this.passproblem = false;
@@ -47,6 +57,7 @@ export class ChangePasswordComponent implements OnInit {
     }
     delete form.value.newPasswordConfirm;
     
+    this.wait();
     const credentials = JSON.stringify(form.value);
     this.http.put(this.domain+"/api/users/"+this.userId, credentials, {
       headers: new HttpHeaders({
@@ -55,6 +66,7 @@ export class ChangePasswordComponent implements OnInit {
     }).subscribe(response => {
       console.log(response)
       this.router.navigate(['/projects'], {queryParams:{userId:this.userId}});
+      this.stopwait();
       (<any>$("#change")).modal('hide');
 
     }, err => {
@@ -63,6 +75,9 @@ export class ChangePasswordComponent implements OnInit {
         this.passproblem = true;
       }
       this.invalidChange = true;
+      form.value.newPasswordConfirm = form.value.newPassword;
+
+      this.stopwait();
     }); 
   }
 

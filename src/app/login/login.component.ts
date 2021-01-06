@@ -13,6 +13,7 @@ export class LoginComponent implements OnInit {
   invalidLogin: boolean;
   message: string;
   domain = sessionStorage.getItem('domain');
+  startWaitingAnimation = false;
 
   @Input()
   redirect: string;
@@ -22,8 +23,15 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  wait(){
+    this.startWaitingAnimation = true;
+  }
+  stopwait(){
+    this.startWaitingAnimation = false;
+  }
 
   login(form: NgForm) {
+    this.wait();
     const credentials = JSON.stringify(form.value);
     this.http.post(this.domain+"/api/login", credentials, {
       headers: new HttpHeaders({
@@ -35,6 +43,7 @@ export class LoginComponent implements OnInit {
       sessionStorage.setItem("userId", userId);
       sessionStorage.setItem("jwt", token);
       this.invalidLogin = false;
+      this.stopwait();
       if(this.redirect == "true"){
         this.router.navigate(['/projects'], {queryParams:{userId:userId}})
       }
@@ -47,6 +56,7 @@ export class LoginComponent implements OnInit {
       else if(err.status == 401){
         this.message = "Incorrect password";
       }
+      this.stopwait();
     });
   }
 

@@ -35,7 +35,8 @@ export class InfoEditorComponent implements OnInit {
   thisMonth: string;
   topics:boolean = false;
   links: boolean = false;
-  
+  startWaitingAnimation = false;
+
   identity: Identity;
   sanitizer: DomSanitizer;
  
@@ -56,6 +57,13 @@ export class InfoEditorComponent implements OnInit {
 
   ngOnInit(): void {
     this.assignCurrentProject(this.currentProject)   
+  }
+
+  wait(){
+    this.startWaitingAnimation = true;
+  }
+  stopwait(){
+    this.startWaitingAnimation = false;
   }
 
 
@@ -115,8 +123,12 @@ export class InfoEditorComponent implements OnInit {
       cancelButtonText: 'No',
     }).then((result) => {
       if (result.isConfirmed) {
+        this.wait();
         this.projectService.loadProjectInfo(this.userId, this.projectId).subscribe(
-          success => { if (success) { this.assignCurrentProject() }}
+          success => { if (success) { 
+            this.assignCurrentProject()
+            this.stopwait();
+          }}
         )
       }
     })
@@ -190,6 +202,7 @@ export class InfoEditorComponent implements OnInit {
   }
 
   updateProject() {
+    this.wait();
 
     this.changesBeforeUploadOnServer();
 
@@ -216,7 +229,10 @@ export class InfoEditorComponent implements OnInit {
   saveProject() {
     // update the project
     this.projectService.updateProject(this.userId, this.projectId, this.currentProject).subscribe(
-      success => { if (success) { this.assignCurrentProject() } }
+      success => { if (success) { 
+        this.assignCurrentProject() 
+        this.stopwait();
+      } }
     )
   }
 

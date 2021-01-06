@@ -28,6 +28,9 @@ export class ProjectsComponent implements OnInit {
   createmode: boolean = false;
   projectsToBeDisplayed: number;
   identity: Identity;
+  startWaitingAnimation = false;
+
+
   constructor(private projectService: ProjectsService, 
               private formBuilder: FormBuilder,
               private router: Router,
@@ -39,7 +42,9 @@ export class ProjectsComponent implements OnInit {
     })  
     this.identity = identity;
   }
+  
   ngOnInit(): void {
+    
     this.route.queryParams.subscribe(
       params => {
         this.userId = params.userId;
@@ -48,12 +53,21 @@ export class ProjectsComponent implements OnInit {
         }
       });
 
+    this.wait();
     this.projectService.loadProjects(this.userId).subscribe(success =>{ 
       if (success) {
         this.assignProjects();
+        this.stopwait();
       }
     })
 
+  }
+
+  wait(){
+    this.startWaitingAnimation = true;
+  }
+  stopwait(){
+    this.startWaitingAnimation = false;
   }
 
   assignProjects(){
@@ -107,6 +121,7 @@ export class ProjectsComponent implements OnInit {
         project.position = 0;
       }
 
+      this.wait();
       if(this.selectedImage.name ==''){ 
         project.photo = this.defaultimg; 
         this.saveProject(project);
@@ -130,6 +145,7 @@ export class ProjectsComponent implements OnInit {
         this.assignProjects();
         this.router.navigate(['/infos'], { queryParams: { projectId: this.projects[0].projectId, userId: this.userId } })
       }
+      this.stopwait();
       this.createProjectForm.reset();
     });
   }
@@ -148,8 +164,12 @@ export class ProjectsComponent implements OnInit {
         else{
           break;
         }
+        this.wait();
         this.projectService.updateProjects(this.userId, this.projects).subscribe(success=>{
-          if(success){ this.assignProjects() }
+          if(success){ 
+            this.assignProjects(); 
+            this.stopwait() 
+          }
         })
         break;
       }
@@ -165,11 +185,15 @@ export class ProjectsComponent implements OnInit {
       confirmButtonText: 'Delete',
       cancelButtonText: 'Cancel',
     }).then((result) => {
+      this.wait();
       if (result.isConfirmed) {
         this.projectService.deleteImage(photoName); //delete the project image
 
         this.projectService.deleteProject(id, this.userId).subscribe( 
-          success =>{ if(success){ this.assignProjects(); } })
+          success =>{ if(success){ 
+            this.assignProjects(); 
+            this.stopwait();
+          } })
         
       }
     })

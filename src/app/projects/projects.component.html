@@ -51,7 +51,9 @@
     
 
 </nav>
-
+<div *ngIf="startWaitingAnimation" class="progress sticky-top"  style="height: 0.2rem">
+    <div class="progress-bar" id="progress"></div>
+</div>
 <!-- Used to put 3 card on a row -->
 <main>
     <!-- Card content -->

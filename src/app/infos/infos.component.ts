@@ -27,6 +27,7 @@ export class InfosComponent implements OnInit {
   modifyProject: boolean = false;
   domain = sessionStorage.getItem('domain');
   identity: Identity;
+  startWaitingAnimation = false;
 
   constructor(private route: ActivatedRoute,
     private projectService: ProjectsService,
@@ -41,6 +42,8 @@ export class InfosComponent implements OnInit {
         this.projectId = params.projectId;
         this.userId = params.userId;
       });
+
+    this.wait();
     this.projectService.loadProjectInfo(this.userId, this.projectId).subscribe(  // TODO: invalid user id or project id
       success => {
         if (success) {
@@ -51,6 +54,7 @@ export class InfosComponent implements OnInit {
               this.projects = this.projectService.projects;
               this.filteredProjects = this.projects.slice(0,this.projectsToBeDisplayed);
               console.log(this.filteredProjects);
+              this.stopwait();
             }
           })
         }
@@ -58,7 +62,13 @@ export class InfosComponent implements OnInit {
   }
 
 
-  
+  wait(){
+    this.startWaitingAnimation = true;
+  }
+  stopwait(){
+    this.startWaitingAnimation = false;
+  }
+
   modify() { // open the edit mode
     this.modifyProject = true;
   }

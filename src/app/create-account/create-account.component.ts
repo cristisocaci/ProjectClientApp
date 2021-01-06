@@ -16,6 +16,7 @@ export class CreateAccountComponent implements OnInit {
   domain = sessionStorage.getItem('domain');
   message: string;
   passproblem: boolean;
+  startWaitingAnimation = false;
 
   constructor(private http : HttpClient,
               private router: Router,
@@ -23,6 +24,14 @@ export class CreateAccountComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+  wait(){
+    this.startWaitingAnimation = true;
+  }
+  stopwait(){
+    this.startWaitingAnimation = false;
+  }
+
 
   createAccount(form: NgForm) {
     this.passproblem = false;
@@ -45,6 +54,7 @@ export class CreateAccountComponent implements OnInit {
     }
     delete form.value.confirmpassword;
     
+    this.wait();
     const credentials = JSON.stringify(form.value);
     this.http.post(this.domain+"/api/users", credentials, {
       headers: new HttpHeaders({
@@ -56,6 +66,7 @@ export class CreateAccountComponent implements OnInit {
       sessionStorage.setItem("userId", userId);
       sessionStorage.setItem("jwt", token);
       this.router.navigate(['/projects'], {queryParams:{userId:userId}});
+      this.stopwait();
       (<any>$("#create")).modal('hide');
 
     }, err => {
@@ -64,6 +75,8 @@ export class CreateAccountComponent implements OnInit {
         this.passproblem = true;
       }
       this.invalidCreate = true;
+      form.value.confirmpassword = form.value.password;
+      this.stopwait();
     }); 
   }
 
