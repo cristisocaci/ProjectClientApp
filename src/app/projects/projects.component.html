@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-md bg-dark text-light justify-content-between sticky-top">
-    <ul class="navbar-nav mr-2 ml-2">
+    <ul class="navbar-nav">
         <!-- Page title -->
         <a class="navbar-brand text-light text-weight-bolder" href="/projects?userId={{userId}}"><i class="fas fa-project-diagram"></i>
             {{logo}}</a>
@@ -20,6 +20,7 @@
         <!-- Dropdown -->
         <li class="nav-item d-inline-block mw-25">
             <div class="btn-group">
+                <a class="btn btn-dark text-light rounded-circle mr-2 " href="/"><i class="fas fa-angle-left"></i></a>
                 <a class="btn btn-dark text-light" (click)="createProjectDisplay()">Create Project</a>
                 <button class="btn btn-dark text-light dropdown-toggle"  data-toggle="dropdown">Account</button>
                 <div class="dropdown-menu dropdown-menu-right bg-dark position-absolute">
@@ -33,6 +34,7 @@
 
     <ul *ngIf="identity.isUserAuthenticated() && !identity.isUserAuthorized(userId) " class="navbar-nav mx-2">
         <li class="nav-item d-inline-block">
+            <a class="btn btn-dark text-light rounded-circle mr-2 " href="/"><i class="fas fa-angle-left"></i></a>
             <a class="btn btn-dark" href="/projects?userId={{identity.getCurrentUserId()}}">My Page</a>
         </li>
     </ul>
@@ -40,11 +42,9 @@
     <ul *ngIf="!identity.isUserAuthenticated()" class="navbar-nav mx-2 ">
         <!-- Login -->
         <li class="nav-item d-inline-block mw-75 ">
+            <a class="btn btn-dark text-light rounded-circle mr-2 " href="/"><i class="fas fa-angle-left"></i></a>
             <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#login">
                 Log In
-            </button>
-            <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#create">
-                Create account
             </button>
         </li>
     </ul>
@@ -55,7 +55,7 @@
 <!-- Used to put 3 card on a row -->
 <main>
     <!-- Card content -->
-    <div class="card" *ngFor="let project of filteredProjects">
+    <div class="card shadow " *ngFor="let project of filteredProjects">
 
         <!-- Read mode -->
         <div *ngIf="project.projectId!=null; else elseBlock">
@@ -124,6 +124,14 @@
     </div>
 </main>  
 
+<!-- Appears when the user has no projects -->
+<div *ngIf="projects.length == 0 && filteredProjects.length==0 && identity.isUserAuthenticated() && identity.isUserAuthorized(userId)" 
+    class="d-flex flex-row align-items-center justify-content-center" id="wrap">
+    <div id="emptyImage" class="d-flex justify-content-end">
+        <button class="btn btn-dark text-light w-50" id="createbutton"  (click)="createProjectDisplay()">Create Project</button>
+    </div>
+</div>
+
 <!-- Hidden for the moment -->
 <div class="btn-group d-none justify-content-center">
     <button class="btn btn-light text-dark" (click)="showMoreLessProjects('m')">
@@ -152,17 +160,6 @@
         <div class="modal-content">
             <div class="modal-body">
                 <change-password [userId]=userId></change-password>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Create account-->
-<div class="modal fade" id="create">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-body">
-                <app-create-account></app-create-account>
             </div>
         </div>
     </div>

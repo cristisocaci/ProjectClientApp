@@ -187,8 +187,6 @@ export class InfoEditorComponent implements OnInit {
     }
     
     this.currentProject.infos.splice(index, 1);
-    console.log(this.currentProject.infos);
-    console.log(this.infoImages);
   }
 
   updateProject() {

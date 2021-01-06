@@ -1,60 +1,43 @@
-.page-wrap {
-    min-height: 90vh;
+
+#wrap{
+    min-height: 85vh; min-width: 90vw;
 }
 
-#shape{
-    shape-outside: polygon(40% -10%, 100% 50%, 40% 110%); 
-    float:left;
+#welcomeImage{
+    background-image: url('https://res.cloudinary.com/myprojectresources/image/upload/projectscape/welcome');
+    background-size: contain; 
+    background-repeat: no-repeat;
+    width:70vw; 
+    height:40vw;
 }
-
 
 p{
-    font-size: 0.8rem;
+    width:70%;
+    text-align: justify;
+    font-family: 'Poppins', sans-serif;
+    position: relative;
+    top:50%
 }
-h1{
-    font-size: 2rem;
+a{
+    font-size: inherit;
 }
 
-@media screen and (min-width: 367px){
+
+@media only screen and (max-width: 900px){
+    #welcomeImage{
+        width:100vw;
+        height: 56.25vw;
+    }
+}
+
+@media only screen and (max-width: 650px){
     p{
-        font-size: 1rem;
+        font-size: small;
     }
 }
 
-@media screen and (min-width: 411px){
-    h1{
-        font-size: 2.5rem;
-    }
-}
-
-@media screen and (min-width: 496px){
-    h1{
-        font-size: 3rem;
-    }
-}
-
-@media screen and (min-width: 538px){
-    #responsiveWidth{
-        width:90%;
-    }
-}
-
-
-@media screen and (min-width: 768px){
-    #responsiveWidth{
-        width:100%;
-    }
-}
-
-@media screen and (min-width: 992px){
-    #responsiveWidth{
-        width:80%;
-    }
-}
-
-
-@media screen and (min-width: 1200px){
-    #responsiveWidth{
-        width:70%;
+@media only screen and (max-width: 500px){
+    p{
+        font-size:xx-small;
     }
 }

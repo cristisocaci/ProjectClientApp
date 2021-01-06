@@ -1,3 +1,17 @@
-.page-wrap {
-    min-height: 90vh;
+#wrap{
+    min-height: 85vh; min-width: 90vw;
+}
+
+#img404{
+    background-image: url('https://res.cloudinary.com/myprojectresources/image/upload/projectscape/404');
+    background-size: contain; 
+    background-repeat: no-repeat;
+    width:70vw; 
+    height:40vw;
+}
+@media only screen and (max-width: 900px){
+    #img404{
+        width:100vw;
+        height: 56.25vw;
+    }
 }
