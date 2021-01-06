@@ -173,7 +173,7 @@
                             <div *ngFor="let img of infoImages; index as j">
                                 <div *ngIf="img.index == i && !img.deleted" class="d-flex justify-content-center border-top border-muted pt-2 mt-2 w-100">
                                     <img *ngIf="img.browserImg!=null" class="img-thumbnail mb-1 img-fluid" src={{img.browserImg}} width="560">
-                                    <img *ngIf="img.browserImg==null" class="img-thumbnail mb-1 img-fluid" src={{imgdomain}}{{info.content}} width="560">
+                                    <img *ngIf="img.browserImg==null && info.content!= ''" class="img-thumbnail mb-1 img-fluid" src={{imgdomain}}{{info.content}} width="560">
                                 </div>
                             </div>
                         </div>

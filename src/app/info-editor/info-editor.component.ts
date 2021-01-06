@@ -30,7 +30,7 @@ export class InfoEditorComponent implements OnInit {
   infoImages:Array<any>;
   projectImage = {file: null, name: '', placeholder:'Change project image', browserImg: null};
   domain = sessionStorage.getItem('domain');
-  imgdomain = this.domain+'/img/';
+  imgdomain = sessionStorage.getItem('imgdomain');
   months: Array<string> =  ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   thisMonth: string;
   topics:boolean = false;
@@ -205,9 +205,15 @@ export class InfoEditorComponent implements OnInit {
         this.currentProject.photo = this.projectImage.name;
         saveInfoImg = saveInfoImg.concat([this.projectImage]);
       }
-      this.projectService.uploadImages(saveInfoImg).subscribe(success => { if (success) { this.assignCurrentProject() } });
+      this.projectService.uploadImages(saveInfoImg).subscribe(success => { if (success) { this.saveProject() } });
+    }
+    else{
+      this.saveProject();
     }
 
+  }
+
+  saveProject() {
     // update the project
     this.projectService.updateProject(this.userId, this.projectId, this.currentProject).subscribe(
       success => { if (success) { this.assignCurrentProject() } }

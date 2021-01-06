@@ -20,8 +20,7 @@ export class ProjectsComponent implements OnInit {
   projects: Array<Project>;
   filteredProjects: Array<Project>;
   domain = sessionStorage.getItem('domain');
-  thispage = "http://localhost:4200"
-  imgdomain = this.domain+'/img/';
+  imgdomain = sessionStorage.getItem('imgdomain');
   defaultimg = 'unnamed1.jpg';
   userId: string;
   createProjectForm: FormGroup;
@@ -108,25 +107,31 @@ export class ProjectsComponent implements OnInit {
         project.position = 0;
       }
 
-      // save the photo
-      if(this.selectedImage.name ==''){ project.photo = this.defaultimg; }
+      if(this.selectedImage.name ==''){ 
+        project.photo = this.defaultimg; 
+        this.saveProject(project);
+      }
       else{ 
         project.photo = this.selectedImage.name;
-        this.projectService.uploadImages([this.selectedImage]).subscribe( (res) => {}, (err) => {})
+        this.projectService.uploadImages([this.selectedImage]).subscribe( (res) => {
+          this.saveProject(project);
+        }, (err) => {})
         this.selectedImage = {file: null, name: '', placeholder:'Choose project image', browserImg: null};
        }
        console.log(project);
-
-       // save the project
-      this.projectService.addProject(project, this.userId).subscribe(success => {
-        if(success){
-          this.assignProjects();
-          this.router.navigate(['/infos'], {queryParams:{projectId: this.projects[0].projectId, userId:this.userId}})
-        }
-        this.createProjectForm.reset();
-      });
       
     }
+  }
+
+  saveProject(project) {
+    // save the project
+    this.projectService.addProject(project, this.userId).subscribe(success => {
+      if (success) {
+        this.assignProjects();
+        this.router.navigate(['/infos'], { queryParams: { projectId: this.projects[0].projectId, userId: this.userId } })
+      }
+      this.createProjectForm.reset();
+    });
   }
 
   moveLR(position: number, direction:string){
