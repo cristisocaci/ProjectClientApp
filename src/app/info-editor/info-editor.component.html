@@ -24,12 +24,13 @@
             <!-- Topics and links-->
             <h5 *ngIf="topics">Tags</h5>
             <div class="d-inline-flex align-items-center mb-2" *ngFor="let info of currentProject.infos">
-                <pre *ngIf="info.type=='topic'" class="mx-2 my-0"><b>{{info.content}}</b> </pre>
+                <div *ngIf="info.type=='topic'" class="badge badge-primary mx-2 my-0">{{info.content}} </div>
             </div>
-            <h5 *ngIf="links">Other links</h5>
+            
+            <h5 *ngIf="links" class="mt-2">Other links</h5>
             <div *ngFor="let info of currentProject.infos" class="d-flex overflow-hidden">
-                <div *ngIf="info.type=='link'" class="d-inline">{{info.additionalData}}</div>
-                <a *ngIf="info.type=='link'" href={{info.content}} class="ml-2">{{info.content}}</a>
+                <div *ngIf="info.type=='link'" class="col-3 pr-0">{{info.additionalData}}</div>
+                <a *ngIf="info.type=='link'" href={{info.content}} class="col-9 pl-1">{{info.content}}</a>
             </div>
         </div>
 
