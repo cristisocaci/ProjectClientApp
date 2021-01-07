@@ -182,7 +182,7 @@
                 [(ngModel)]="currentProject.infos[i].content" style="resize: none;" placeholder="Text"></textarea>
             <!-- Subtitle -->
             <input *ngIf="info.type==='subtitle'" type="text" class="form-control font-weight-bold"
-                [(ngModel)]="currentProject.infos[i].content" placeholder="Subtitle">
+                [(ngModel)]="currentProject.infos[i].content" placeholder="Title">
             <!-- Youtube video -->
             <div *ngIf="info.type==='ytvideo'" class="form-inline mb-1 w-100">
                 <input type="text" class="form-control w-25" [(ngModel)]="currentProject.infos[i].additionalData"
