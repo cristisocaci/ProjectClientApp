@@ -28,9 +28,9 @@
             </div>
             
             <h5 *ngIf="links" class="mt-2">Other links</h5>
-            <div *ngFor="let info of currentProject.infos" class="d-flex overflow-hidden">
-                <div *ngIf="info.type=='link'" class="col-3 pr-0">{{info.additionalData}}</div>
-                <a *ngIf="info.type=='link'" href={{info.content}} class="col-9 pl-1">{{info.content}}</a>
+            <div *ngFor="let info of currentProject.infos" class="row overflow-hidden">
+                <div *ngIf="info.type=='link'" class="col-lg-3 pr-0">{{info.additionalData}}</div>
+                <a *ngIf="info.type=='link'" href={{info.content}} class="col-lg-8 ml-2">{{info.content}}</a>
             </div>
         </div>
 
