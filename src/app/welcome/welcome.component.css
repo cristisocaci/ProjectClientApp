@@ -16,12 +16,14 @@ p{
     text-align: justify;
     font-family: 'Poppins', sans-serif;
     position: relative;
-    top:50%
+    top:50%;
+    height:25%;
+    
 }
-a{
+p a{
     font-size: inherit;
+    font-weight:bold;
 }
-
 
 @media only screen and (max-width: 900px){
     #welcomeImage{
