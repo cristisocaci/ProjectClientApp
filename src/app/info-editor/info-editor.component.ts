@@ -56,7 +56,8 @@ export class InfoEditorComponent implements OnInit, OnChanges {
     this.sanitizer = sanitizer;
   }
   ngOnChanges(changes: SimpleChanges): void {
-    this.assignCurrentProject(this.currentProject)   
+    if(changes.projectId)
+      this.assignCurrentProject(this.currentProject)   
   }
 
   ngOnInit(): void {

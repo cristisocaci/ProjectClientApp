@@ -42,8 +42,7 @@ export class ProjectsComponent implements OnInit {
     })  
     this.identity = identity;
   }
-
-
+  
   
   ngOnInit(): void {
     this.wait();
@@ -71,9 +70,9 @@ export class ProjectsComponent implements OnInit {
 
   assignProjects(){
     this.projects = this.projectService.projects;
-    this.userHasNoProjects = this.projects.length === 0;
     this.projectsToBeDisplayed = this.projects.length;  // REMOVE THIS LINE IF YOU WANT TO USE ShowMoreLessProjects 
     this.filteredProjects = this.projects.slice(0,this.projectsToBeDisplayed);
+    this.userHasNoProjects = this.filteredProjects.length === 0;
     this.createmode = false;
   }
 
@@ -88,10 +87,12 @@ export class ProjectsComponent implements OnInit {
         newproj.position = 0;
       }
       this.filteredProjects.unshift(newproj);
+      this.userHasNoProjects = this.filteredProjects.length === 0;
     }
   }
   closeCreationDisplay(){
     this.filteredProjects.shift();
+    this.userHasNoProjects = this.filteredProjects.length === 0;
     this.createmode = false;
   }
   saveImage(imageInput: any) {
@@ -184,8 +185,8 @@ export class ProjectsComponent implements OnInit {
       confirmButtonText: 'Delete',
       cancelButtonText: 'Cancel',
     }).then((result) => {
-      this.wait();
       if (result.isConfirmed) {
+        this.wait();
         this.projectService.deleteImage(photoName); //delete the project image
 
         this.projectService.deleteProject(id, this.userId).subscribe( 
