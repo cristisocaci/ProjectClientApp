@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "build",
+    "public": "dist/presentation-app",
 	"site": "projectscape",
     "ignore": [
       "firebase.json",
