@@ -133,7 +133,6 @@ export class ProjectsComponent implements OnInit {
         }, (err) => {})
         this.selectedImage = {file: null, name: '', placeholder:'Choose project image', browserImg: null};
        }
-       console.log(project);
       
     }
   }
@@ -205,7 +204,6 @@ export class ProjectsComponent implements OnInit {
     if(!value){
       this.filteredProjects = this.projects.slice(0,this.projectsToBeDisplayed);
     } // when nothing has typed
-    console.log(this.filteredProjects)
     this.filteredProjects = this.projects.filter(
        item => item.title.toLowerCase().indexOf(value.toLowerCase()) > -1
     ).slice(0,this.projectsToBeDisplayed);

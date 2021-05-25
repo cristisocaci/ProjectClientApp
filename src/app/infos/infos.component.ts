@@ -53,7 +53,6 @@ export class InfosComponent implements OnInit {
             if (success) {
               this.projects = this.projectService.projects;
               this.filteredProjects = this.projects.slice(0,this.projectsToBeDisplayed);
-              console.log(this.filteredProjects);
               this.stopwait();
             }
           })
@@ -77,7 +76,6 @@ export class InfosComponent implements OnInit {
     if(!value){
         this.filteredProjects = this.projects.slice(0,this.projectsToBeDisplayed);
     } // when nothing has typed
-    console.log(this.filteredProjects)
     this.filteredProjects = this.projects.filter(
        item => item.title.toLowerCase().indexOf(value.toLowerCase()) > -1
     ).slice(0,this.projectsToBeDisplayed);

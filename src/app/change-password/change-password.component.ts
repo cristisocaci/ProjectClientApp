@@ -64,7 +64,6 @@ export class ChangePasswordComponent implements OnInit {
         "Content-Type": "application/json"
       })
     }).subscribe(response => {
-      console.log(response)
       this.router.navigate(['/projects'], {queryParams:{userId:this.userId}});
       this.stopwait();
       (<any>$("#change")).modal('hide');

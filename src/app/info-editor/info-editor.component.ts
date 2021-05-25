@@ -79,7 +79,6 @@ export class InfoEditorComponent implements OnInit {
     this.checkIfTopicOrLink();
     this.modifyProject = false;
     this.modifyProjectChange.emit(this.modifyProject);
-    console.log(this.currentProject);
   }
 
   checkIfTopicOrLink(){ // check if there is a topic or a link in order to display "Tags" or "Other links" on the page
