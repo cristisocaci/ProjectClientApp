@@ -20,7 +20,6 @@ export class WelcomeComponent implements OnInit {
   ngOnInit(): void {
     this.projectService.loadProjects("0").subscribe(success =>{ 
       if (success) {
-        console.log('ok')
       }
     })
   }

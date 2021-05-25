@@ -31,7 +31,6 @@ export class Identity {
     }
 
     logOut() {
-        console.log("Logging out")
         sessionStorage.removeItem("jwt");
     }
 

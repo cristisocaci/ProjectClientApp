@@ -30,13 +30,10 @@ export class ProjectsService {
           }
         }
         this.projects = data.sort((a, b)=> ((a.position < b.position) ? 1: -1)); // arrange the project in reverse order according to their position
-        console.log("Loaded projects");
-        console.log(this.projects);
         return true;
       }),
       catchError(e => {
         if(e.status == 404){
-          console.log(e);
           this.router.navigate(['/404']);
           return new Observable<any>();
         }
@@ -66,10 +63,8 @@ export class ProjectsService {
     for(let i=0; i < images.length; ++i){
       formData.append("file", images[i].file, images[i].name);
     }
-    console.log(images);
     return this.http.post(this.domain+`/api/images`, formData).pipe(
       map((data: any) => {
-        console.log(data);
         return true;
       })
     );
@@ -79,7 +74,6 @@ export class ProjectsService {
     if (name != this.defaultimg) {
       this.http.post(this.domain + `/api/images/` + name, null).pipe(
         map((data: any) => {
-          console.log(data);
           return true;
         })
       ).subscribe();
@@ -100,7 +94,6 @@ export class ProjectsService {
       }),
       catchError(e=>{
         if(e.status == 404){
-          console.log(e);
           this.router.navigate(['/404']);
           return new Observable<any>();
         }
@@ -118,7 +111,6 @@ export class ProjectsService {
           data.endDate = new Date(data.endDate);
         }
         this.currentProject = data;
-        console.log(data);
         return true;
       }));
   }
@@ -136,8 +128,6 @@ export class ProjectsService {
           }
         }
         this.projects = data.sort((a, b)=> ((a.position < b.position) ? 1: -1)); // arrange the project in reverse order according to their position
-        console.log("Updated projects:");
-        console.log(this.projects);
         return true;
       }));
   }
