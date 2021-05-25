@@ -18,5 +18,7 @@ jobs:
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_PROJECTSCAPE_B8309 }}'
           channelId: live
           projectId: projectscape-b8309
+          entryPoint: "./" 
         env:
           FIREBASE_CLI_PREVIEWS: hostingchannels
+          production: true
