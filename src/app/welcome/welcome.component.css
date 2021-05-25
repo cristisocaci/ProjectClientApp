@@ -25,6 +25,11 @@ p a{
     font-weight:bold;
 }
 
+.hover-logo:hover{
+    cursor: pointer;
+    user-select: none;
+}
+
 @media only screen and (max-width: 900px){
     #welcomeImage{
         width:100vw;

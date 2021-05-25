@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { Identity } from '../shared/identity';
 import { ProjectsService } from '../shared/projects.service';
@@ -13,7 +14,8 @@ export class WelcomeComponent implements OnInit {
   logo = sessionStorage.getItem("logo");
 
   constructor( identity: Identity,
-              private projectService: ProjectsService, ) { 
+              private projectService: ProjectsService,
+              private router: Router ) { 
     this.identity = identity;
   }
 

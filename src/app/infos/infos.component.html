@@ -7,12 +7,12 @@
             class="navbar navbar-expand-md bg-dark text-light justify-content-between sticky-top border-right border-secondary">
             <ul class="navbar-nav mx-2">
                 <!-- Page title -->
-                <a class="navbar-brand text-light text-weight-bolder" href="/projects?userId={{userId}}"><i
+                <a class="navbar-brand text-light text-weight-bolder hover-logo" (click)="router.navigate(['/projects'], {queryParams:{userId:userId}})"><i
                         class="fas fa-project-diagram"></i> {{logo}}</a>
             </ul>
             
             <div class="navbar-nav d-flex flex-row">
-                <a *ngIf="!modifyProject" class="btn btn-dark text-light" href="/projects?userId={{userId}}">
+                <a *ngIf="!modifyProject" class="btn btn-dark text-light" (click)="router.navigate(['/projects'], {queryParams:{userId:userId}})">
                     <i class="fas fa-angle-left"></i> Back
                 </a>
                 <ul *ngIf="identity.isUserAuthenticated() && identity.isUserAuthorized(userId)" class="navbar-nav mx-2">
@@ -61,7 +61,7 @@
 
         <div class="collapse d-md-none my-2 bg-dark" id="collapsible">
             <ul class="list-group list-group-flush my-2">
-                <a href="/infos?projectId={{project.projectId}}&userId={{project.userId}}"
+                <a (click)="router.navigate(['/infos'], {queryParams:{userId:project.userId, projectId: project.projectId}})"
                     *ngFor="let project of filteredProjects" class="list-group-item btn bg-dark text-light">
                     {{project.title}}
                 </a>
@@ -80,12 +80,12 @@
         <ul class="list-group list-group-flush my-2 d-none d-md-block">
     
             <div *ngFor="let project of filteredProjects ">
-                <a href="/infos?projectId={{project.projectId}}&userId={{project.userId}}"
+                <a (click)="router.navigate(['/infos'], {queryParams:{userId:project.userId, projectId: project.projectId}})"
                     *ngIf="project.projectId != currentProject.projectId"
                     class="list-group-item btn bg-dark text-light">
                     {{project.title}}
                 </a>
-                <a href="/infos?projectId={{project.projectId}}&userId={{project.userId}}"
+                <a (click)="router.navigate(['/infos'], {queryParams:{userId:project.userId, projectId: project.projectId}})"
                     *ngIf="project.projectId == currentProject.projectId"
                     class="list-group-item btn bg-dark text-primary disabled">
                     {{project.title}}

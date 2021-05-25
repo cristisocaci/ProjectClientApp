@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-md bg-dark text-light justify-content-between sticky-top">
     <ul class="navbar-nav mr-2 ml-2">
         <!-- Page title -->
-        <a class="navbar-brand text-light text-weight-bolder" href=""><i class="fas fa-project-diagram"></i>
+        <a class="navbar-brand text-light text-weight-bolder hover-logo"><i class="fas fa-project-diagram"></i>
             {{logo}}</a>
     </ul>
 
@@ -15,7 +15,7 @@
     </div>
 
     <div *ngIf="identity.isUserAuthenticated()">
-        <a class="btn btn-dark" href="/projects?userId={{identity.getCurrentUserId()}}">My Page</a>
+        <a class="btn btn-dark" (click)="router.navigate(['/projects'], {queryParams:{userId:identity.getCurrentUserId()}})">My Page</a>
         <a class="btn btn-dark" (click)="identity.logOut()">Log Out</a>
     </div>
 </nav>
@@ -26,7 +26,7 @@
         <div class="w-50 h-100 d-flex justify-content-center">
             <p>
                 My name is Cristian Socaci and I built this app to showcase my personal projects.
-                You can check them out <a class="btn text-primary p-0" href="/projects?userId=0">here</a>.
+                You can check them out <a class="btn text-primary p-0" (click)="router.navigate(['/projects'], {queryParams:{userId:0}})">here</a>.
                 If you wish to showcase your own projects create an account and start making your presentations.
             </p>
         </div>

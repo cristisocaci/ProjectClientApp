@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import Swal from 'sweetalert2';
 import uuidv4 from "uuid/dist/v4";
@@ -15,7 +15,7 @@ import { ProjectsService } from '../shared/projects.service';
   templateUrl: './info-editor.component.html',
   styleUrls: ['./info-editor.component.css']
 })
-export class InfoEditorComponent implements OnInit {
+export class InfoEditorComponent implements OnInit, OnChanges {
 
   @Input()
   modifyProject:boolean;
@@ -25,8 +25,9 @@ export class InfoEditorComponent implements OnInit {
   projectId: number;
   @Input()
   userId: string;
-
+  @Input()
   currentProject:Project;
+  
   infoImages:Array<any>;
   projectImage = {file: null, name: '', placeholder:'Change project image', browserImg: null};
   domain = sessionStorage.getItem('domain');
@@ -53,6 +54,9 @@ export class InfoEditorComponent implements OnInit {
     
     this.identity = identity;      
     this.sanitizer = sanitizer;
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+    this.assignCurrentProject(this.currentProject)   
   }
 
   ngOnInit(): void {

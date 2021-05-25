@@ -80,6 +80,12 @@ main .card-img-overlay{
     
 }
 
+
+.hover-logo:hover{
+    cursor: pointer;
+    user-select: none;
+}
+
 @keyframes update{
     from {width: 0%;}
     to {width: 100%}

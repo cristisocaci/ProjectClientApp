@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-md bg-dark text-light justify-content-between sticky-top">
     <ul class="navbar-nav">
         <!-- Page title -->
-        <a class="navbar-brand text-light text-weight-bolder" href="/projects?userId={{userId}}"><i class="fas fa-project-diagram"></i>
+        <a class="navbar-brand text-light text-weight-bolder hover-logo"><i class="fas fa-project-diagram"></i>
             {{logo}}</a>
     </ul>
 
@@ -20,7 +20,7 @@
         <!-- Dropdown -->
         <li class="nav-item d-inline-block mw-25">
             <div class="btn-group">
-                <a class="btn btn-dark text-light rounded-circle mr-2 " href="/"><i class="fas fa-angle-left"></i></a>
+                <a class="btn btn-dark text-light rounded-circle mr-2 " (click)="router.navigate(['/'])"><i class="fas fa-angle-left"></i></a>
                 <a class="btn btn-dark text-light" (click)="createProjectDisplay()">Create Project</a>
                 <button class="btn btn-dark text-light dropdown-toggle"  data-toggle="dropdown">Account</button>
                 <div class="dropdown-menu dropdown-menu-right bg-dark position-absolute">
@@ -34,15 +34,15 @@
 
     <ul *ngIf="identity.isUserAuthenticated() && !identity.isUserAuthorized(userId) " class="navbar-nav mx-2">
         <li class="nav-item d-inline-block">
-            <a class="btn btn-dark text-light rounded-circle mr-2 " href="/"><i class="fas fa-angle-left"></i></a>
-            <a class="btn btn-dark" href="/projects?userId={{identity.getCurrentUserId()}}">My Page</a>
+            <a class="btn btn-dark text-light rounded-circle mr-2 " (click)="router.navigate(['/'])"><i class="fas fa-angle-left"></i></a>
+            <a class="btn btn-dark" (click)="router.navigate(['/projects'], {queryParams:{userId:identity.getCurrentUserId()}})">My Page</a>
         </li>
     </ul>
 
     <ul *ngIf="!identity.isUserAuthenticated()" class="navbar-nav mx-2 ">
         <!-- Login -->
         <li class="nav-item d-inline-block mw-75 ">
-            <a class="btn btn-dark text-light rounded-circle mr-2 " href="/"><i class="fas fa-angle-left"></i></a>
+            <a class="btn btn-dark text-light rounded-circle mr-2 " (click)="router.navigate(['/'])"><i class="fas fa-angle-left"></i></a>
             <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#login">
                 Log In
             </button>
@@ -87,7 +87,7 @@
             </div>
             <!--Redirect to project button-->
             <div class="card-footer">
-                <a href="/infos?projectId={{project.projectId}}&userId={{userId}}" class="btn btn-outline-primary">See
+                <a (click)="router.navigate(['/infos'], {queryParams:{userId:userId, projectId:project.projectId}})" class="btn btn-outline-primary">See
                     Project</a>
             </div>
         </div>

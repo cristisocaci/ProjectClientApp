@@ -1,11 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 import { Project } from '../shared/project';
 import { ProjectsService } from '../shared/projects.service';
 import { Identity } from '../shared/identity';
 import { InfoEditorComponent } from '../info-editor/info-editor.component';
+import { log } from 'console';
 
 
 @Component({
@@ -31,32 +32,33 @@ export class InfosComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
     private projectService: ProjectsService,
-    identity: Identity) {
-      this.identity = identity;      
+    identity: Identity,
+    private router: Router) {
+      this.identity = identity;    
      }
 
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(
-      params => {
-        this.projectId = params.projectId;
-        this.userId = params.userId;
-      });
 
     this.wait();
-    this.projectService.loadProjectInfo(this.userId, this.projectId).subscribe(  // TODO: invalid user id or project id
-      success => {
-        if (success) {
-          this.currentProject = this.projectService.currentProject; // Load current project information
-          // Load the other projects
-          this.projectService.loadProjects(this.userId).subscribe(success => {
+    this.route.queryParams.subscribe(
+      params => {
+        this.projectService.loadProjectInfo(params.userId, params.projectId).subscribe(  // TODO: invalid user id or project id
+          success => {
             if (success) {
-              this.projects = this.projectService.projects;
-              this.filteredProjects = this.projects.slice(0,this.projectsToBeDisplayed);
-              this.stopwait();
+              this.currentProject = this.projectService.currentProject; // Load current project information
+              // Load the other projects
+              this.projectService.loadProjects(params.userId).subscribe(success => {
+                if (success) {
+                  this.projects = this.projectService.projects;
+                  this.filteredProjects = this.projects.slice(0,this.projectsToBeDisplayed);
+                  this.projectId = params.projectId;
+                  this.userId = params.userId;
+                  this.stopwait();
+                }
+              })
             }
-          })
-        }
+          });
       });
   }
 

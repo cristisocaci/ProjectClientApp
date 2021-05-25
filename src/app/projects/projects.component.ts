@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import Swal from 'sweetalert2';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import uuidv4 from "uuid/dist/v4";
@@ -42,25 +42,24 @@ export class ProjectsComponent implements OnInit {
     })  
     this.identity = identity;
   }
+
+
   
   ngOnInit(): void {
-    
+    this.wait();
     this.route.queryParams.subscribe(
       params => {
         this.userId = params.userId;
         if(this.userId == null){
           this.router.navigate([''])
         }
+        this.projectService.loadProjects(this.userId).subscribe(success =>{ 
+          if (success) {
+            this.assignProjects();
+            this.stopwait();
+          }
+        })
       });
-
-    this.wait();
-    this.projectService.loadProjects(this.userId).subscribe(success =>{ 
-      if (success) {
-        this.assignProjects();
-        this.stopwait();
-      }
-    })
-
   }
 
   wait(){
