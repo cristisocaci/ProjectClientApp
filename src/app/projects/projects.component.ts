@@ -33,7 +33,7 @@ export class ProjectsComponent implements OnInit {
 
   constructor(private projectService: ProjectsService, 
               private formBuilder: FormBuilder,
-              private router: Router,
+              public router: Router,
               private route: ActivatedRoute,
               identity: Identity) {
     this.createProjectForm = this.formBuilder.group({

@@ -15,7 +15,7 @@ export class WelcomeComponent implements OnInit {
 
   constructor( identity: Identity,
               private projectService: ProjectsService,
-              private router: Router ) { 
+              public router: Router ) { 
     this.identity = identity;
   }
 

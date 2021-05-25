@@ -6,7 +6,6 @@ import { Project } from '../shared/project';
 import { ProjectsService } from '../shared/projects.service';
 import { Identity } from '../shared/identity';
 import { InfoEditorComponent } from '../info-editor/info-editor.component';
-import { log } from 'console';
 
 
 @Component({
@@ -33,7 +32,7 @@ export class InfosComponent implements OnInit {
   constructor(private route: ActivatedRoute,
     private projectService: ProjectsService,
     identity: Identity,
-    private router: Router) {
+    public router: Router) {
       this.identity = identity;    
      }
 

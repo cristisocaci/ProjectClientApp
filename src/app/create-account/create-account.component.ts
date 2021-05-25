@@ -19,7 +19,7 @@ export class CreateAccountComponent implements OnInit {
   startWaitingAnimation = false;
 
   constructor(private http : HttpClient,
-              private router: Router,
+              public router: Router,
               private validation: Validation) { }
 
   ngOnInit(): void {

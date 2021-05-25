@@ -10,7 +10,7 @@ export class Page404Component implements OnInit {
   
   logo = sessionStorage.getItem("logo");
 
-  constructor(private router: Router) { }
+  constructor(public router: Router) { }
 
   ngOnInit(): void {
   }

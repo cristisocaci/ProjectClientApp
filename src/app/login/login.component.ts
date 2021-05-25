@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
   redirect: string;
 
   constructor(private http : HttpClient,
-              private router: Router,) { }
+              public router: Router,) { }
 
   ngOnInit(): void {
   }
