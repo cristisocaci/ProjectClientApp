@@ -127,7 +127,7 @@
 </main>  
 
 <!-- Appears when the user has no projects -->
-<div *ngIf="projects.length == 0 && filteredProjects.length==0 && identity.isUserAuthenticated() && identity.isUserAuthorized(userId)" 
+<div *ngIf="userHasNoProjects && identity.isUserAuthenticated() && identity.isUserAuthorized(userId)" 
     class="d-flex flex-row align-items-center justify-content-center" id="wrap">
     <div id="emptyImage" class="d-flex justify-content-end">
         <button class="btn btn-dark text-light w-50" id="createbutton"  (click)="createProjectDisplay()">Create Project</button>

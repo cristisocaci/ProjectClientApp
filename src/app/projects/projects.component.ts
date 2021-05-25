@@ -29,7 +29,7 @@ export class ProjectsComponent implements OnInit {
   projectsToBeDisplayed: number;
   identity: Identity;
   startWaitingAnimation = false;
-
+  userHasNoProjects = false;
 
   constructor(private projectService: ProjectsService, 
               private formBuilder: FormBuilder,
@@ -71,6 +71,7 @@ export class ProjectsComponent implements OnInit {
 
   assignProjects(){
     this.projects = this.projectService.projects;
+    this.userHasNoProjects = this.projects.length === 0;
     this.projectsToBeDisplayed = this.projects.length;  // REMOVE THIS LINE IF YOU WANT TO USE ShowMoreLessProjects 
     this.filteredProjects = this.projects.slice(0,this.projectsToBeDisplayed);
     this.createmode = false;
